@@ -99,11 +99,11 @@ public class Game {
             // Check for winners, losers, and a draw
 
             if (CheckBoard(PlayerType.XPLAYER)) {
-                Msg[0] = "You Win!";
+                Msg[0] = "X Wins!";
                 Msg[1] = "You Lose!";
                 CurrentTurn = PlayerType.NOPLAYER;
             } else if (CheckBoard(PlayerType.OPLAYER)) {
-                Msg[1] = "You Win!";
+                Msg[1] = "O Wins!";
                 Msg[0] = "You Lose!";
                 CurrentTurn = PlayerType.NOPLAYER;
             } else if (CheckDraw(U.PlayerIdx)) {

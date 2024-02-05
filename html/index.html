@@ -54,9 +54,11 @@
 
     connection.onopen = function (evt) {
         console.log("open");
+        gamesPlayed++;
     }
     connection.onclose = function (evt) {
         console.log("close");
+        gamesInProgress--;
         document.getElementById("topMessage").innerHTML = "Server Offline"
     }
     const ButtonStateToDisplay = new Map();
@@ -100,30 +102,32 @@
                 document.getElementById("topMessage").innerHTML = obj.Msg[idx];
             }
         }
-
-        else if('Winner' in obj){
-            gamesPlayed++;
-            if(obj.Winner == "XPLAYER"){
+        if(obj.Msg[0] == "X Wins!" || obj.Msg[1] == "O Wins!" || obj.Msg[0] == "Draw!"){
+            gamesInProgress--;
+            if(obj.Msg[0] == "X Wins!"){
                 gamesWonByX++;
             }
-            else if(obj.Winner == "OPLAYER"){
+            else if(obj.Msg[1] == "O Wins!"){
                 gamesWonByO++;
             }
-            else{
+            else if(obj.Msg[0] == "Draw"){
                 gamesDrawn++;
             }
-            gamesInProgress--;
-
-            updateBottomMessage();
         }
+        else{
+            gamesInProgress++;
+        }
+        updateBottomMessage();
+        
     }
 
     function updateBottomMessage(){
-        document.getElementById("bottomMessage").innerHTML = "Games Played: " 
-        + gamesPlayed + " | Games In Progress: " 
-        + gamesInProgress + " | Games Won By X: " 
-        + gamesWonByX + " | Games Won By O: " 
-        + gamesWonByO + " | Games Drawn: " + gamesDrawn;
+        document.getElementById("bottomMessage").innerHTML = 
+        "Games Played: " + gamesPlayed + "<br>" +
+        "Games In Progress: " + gamesInProgress + "<br>" +
+        "Games Won By X: " + gamesWonByX + "<br>" +
+        "Games Won By O: " + gamesWonByO + "<br>" +
+        "Games Drawn: " + gamesDrawn;
     }
 
     function buttonclick(i) {

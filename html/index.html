@@ -29,9 +29,17 @@
     </tr>
 </table>
 
+<label id="bottomMessage"></label>
+
 <script>
     var idx = -1;
     var gameid = -1;
+    var gamesPlayed = 0;
+    var gamesInProgress = 0;
+    var gamesWonByX = 0;
+    var gamesWonByO = 0;
+    var gamesDrawn = 0;
+
     class UserEvent {
         Button = -1;
         PlayerIdx = 0;
@@ -92,6 +100,30 @@
                 document.getElementById("topMessage").innerHTML = obj.Msg[idx];
             }
         }
+
+        else if('Winner' in obj){
+            gamesPlayed++;
+            if(obj.Winner == "XPLAYER"){
+                gamesWonByX++;
+            }
+            else if(obj.Winner == "OPLAYER"){
+                gamesWonByO++;
+            }
+            else{
+                gamesDrawn++;
+            }
+            gamesInProgress--;
+
+            updateBottomMessage();
+        }
+    }
+
+    function updateBottomMessage(){
+        document.getElementById("bottomMessage").innerHTML = "Games Played: " 
+        + gamesPlayed + " | Games In Progress: " 
+        + gamesInProgress + " | Games Won By X: " 
+        + gamesWonByX + " | Games Won By O: " 
+        + gamesWonByO + " | Games Drawn: " + gamesDrawn;
     }
 
     function buttonclick(i) {

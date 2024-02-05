@@ -6,6 +6,11 @@ public class Game {
     public PlayerType[] Button;
     public String[] Msg;
     public int GameId;
+    public int gamesPlayed;
+    public int gamesInProgress;
+    public int gamesWonByX;
+    public int gamesWonByO;
+    public int gamesDrawn;
 
     Game() {
         Button = new PlayerType[9];
@@ -26,6 +31,8 @@ public class Game {
         Msg[0] = "You are X. Your turn";
         Msg[1] = "You are O. Other players turn";
         CurrentTurn = PlayerType.XPLAYER;
+        gamesPlayed++;
+        gamesInProgress++;
     }
 
     private boolean CheckLine(int i, int j, int k, PlayerType player) {
@@ -57,7 +64,6 @@ public class Game {
                 count = count + 1;
             }
         }
-
         return count == 0;
     }
 
@@ -99,19 +105,35 @@ public class Game {
             // Check for winners, losers, and a draw
 
             if (CheckBoard(PlayerType.XPLAYER)) {
-                Msg[0] = "X Wins!";
+                Msg[0] = "You Win!";
                 Msg[1] = "You Lose!";
+                gamesWonByX++;
+                gamesInProgress--;
                 CurrentTurn = PlayerType.NOPLAYER;
             } else if (CheckBoard(PlayerType.OPLAYER)) {
-                Msg[1] = "O Wins!";
+                Msg[1] = "You Win!";
                 Msg[0] = "You Lose!";
+                gamesWonByO++;
+                gamesInProgress--;
                 CurrentTurn = PlayerType.NOPLAYER;
             } else if (CheckDraw(U.PlayerIdx)) {
                 Msg[0] = "Draw";
                 Msg[1] = "Draw";
+                gamesDrawn++;
+                gamesInProgress--;
                 CurrentTurn = PlayerType.NOPLAYER;
             }
         }
+        Msg[2] = gamesPlayed
+                + " games played. "
+                + gamesInProgress
+                + " games in progress. "
+                + gamesWonByX
+                + " games won by X. "
+                + gamesWonByO
+                + " games won by O. "
+                + gamesDrawn
+                + " games drawn.";
     }
 
     public void Tick() {

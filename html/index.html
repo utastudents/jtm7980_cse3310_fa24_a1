@@ -73,7 +73,7 @@
         console.log("Message received: " + msg);
         const obj = JSON.parse(msg);
 
-        //gamesplayed = obj.gamesPlayed;
+        gamesplayed = obj.gamesPlayed;
         gamesinprogress = obj.gamesInProgress;
         gameswonbyx = obj.gamesWonByX;
         gameswonbyo = obj.gamesWonByO;
@@ -111,7 +111,7 @@
             }
         }
         document.getElementById("bottomMessage").innerHTML =
-        "Games Played: " + obj.Msg[2] + "<br>" +
+        "Games Played: " + gamesplayed + "<br>" +
         "Games In Progress: " + gamesinprogress + "<br>" +
         "Games Won By X: " + gameswonbyx + "<br>" +
         "Games Won By O: " + gameswonbyo + "<br>" +

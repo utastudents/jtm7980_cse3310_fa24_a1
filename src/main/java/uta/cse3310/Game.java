@@ -97,7 +97,7 @@ public class Game {
     }
 
     public void Update(UserEvent U) {
-        gamesPlayed = GameId-1;
+        //gamesPlayed = GameId-1;
         System.out.println("The user event is " + U.PlayerIdx + "  " + U.Button);
 
         if ((CurrentTurn == U.PlayerIdx) && (CurrentTurn == PlayerType.OPLAYER || CurrentTurn == PlayerType.XPLAYER)) {
@@ -146,7 +146,7 @@ public class Game {
             }
         }
         
-        Msg[2] = "" + gamesPlayed;
+        Msg[2] = "Games Played: " + gamesPlayed;
         Msg[3] = "Games In Progress: " + gamesInProgress;
         Msg[4] = "Games Won By X: " + gamesWonByX;
         Msg[5] = "Games Won By O: " + gamesWonByO;

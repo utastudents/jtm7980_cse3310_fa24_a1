@@ -12,6 +12,22 @@ public class Game {
     public int gamesWonByO;
     public int gamesDrawn;
 
+    public int getGamesPlayed() {
+        return gamesPlayed;
+    }
+    public int getGamesInProgress() {
+        return gamesInProgress;
+    }
+    public int getGamesWonByX() {
+        return gamesWonByX;
+    }
+    public int getGamesWonByO() {
+        return gamesWonByO;
+    }
+    public int getGamesDrawn() {
+        return gamesDrawn;
+    }
+
     Game() {
         Button = new PlayerType[9];
         // initialize it
@@ -19,7 +35,7 @@ public class Game {
             Button[i] = PlayerType.NOPLAYER;
         }
 
-        Msg = new String[2];
+        Msg = new String[10];
         Players = PlayerType.XPLAYER;
         CurrentTurn = PlayerType.NOPLAYER;
         Msg[0] = "Waiting for other player to join";
@@ -31,7 +47,7 @@ public class Game {
         Msg[0] = "You are X. Your turn";
         Msg[1] = "You are O. Other players turn";
         CurrentTurn = PlayerType.XPLAYER;
-        gamesPlayed++;
+        //gamesPlayed++;
         gamesInProgress++;
     }
 
@@ -80,6 +96,7 @@ public class Game {
     }
 
     public void Update(UserEvent U) {
+        gamesPlayed = GameId-1;
         System.out.println("The user event is " + U.PlayerIdx + "  " + U.Button);
 
         if ((CurrentTurn == U.PlayerIdx) && (CurrentTurn == PlayerType.OPLAYER || CurrentTurn == PlayerType.XPLAYER)) {
@@ -107,33 +124,32 @@ public class Game {
             if (CheckBoard(PlayerType.XPLAYER)) {
                 Msg[0] = "You Win!";
                 Msg[1] = "You Lose!";
+                gamesPlayed++;
                 gamesWonByX++;
                 gamesInProgress--;
                 CurrentTurn = PlayerType.NOPLAYER;
             } else if (CheckBoard(PlayerType.OPLAYER)) {
                 Msg[1] = "You Win!";
                 Msg[0] = "You Lose!";
+                gamesPlayed++;
                 gamesWonByO++;
                 gamesInProgress--;
                 CurrentTurn = PlayerType.NOPLAYER;
             } else if (CheckDraw(U.PlayerIdx)) {
                 Msg[0] = "Draw";
                 Msg[1] = "Draw";
+                gamesPlayed++;
                 gamesDrawn++;
                 gamesInProgress--;
                 CurrentTurn = PlayerType.NOPLAYER;
             }
         }
-        Msg[2] = gamesPlayed
-                + " games played. "
-                + gamesInProgress
-                + " games in progress. "
-                + gamesWonByX
-                + " games won by X. "
-                + gamesWonByO
-                + " games won by O. "
-                + gamesDrawn
-                + " games drawn.";
+        
+        Msg[2] = "" + gamesPlayed;
+        Msg[3] = "Games In Progress: " + gamesInProgress;
+        Msg[4] = "Games Won By X: " + gamesWonByX;
+        Msg[5] = "Games Won By O: " + gamesWonByO;
+        Msg[6] = "Games Drawn: " + gamesDrawn;
     }
 
     public void Tick() {

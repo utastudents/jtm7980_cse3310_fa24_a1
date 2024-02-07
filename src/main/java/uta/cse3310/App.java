@@ -64,6 +64,10 @@ public class App extends WebSocketServer {
   Vector<Game> ActiveGames = new Vector<Game>();
 
   int GameId = 1;
+  int gamesInProgress = 0;
+  int gamesWonByX = 0;
+  int gamesWonByO = 0;
+  int gamesDrawn = 0;
 
   public App(int port) {
     super(new InetSocketAddress(port));
@@ -92,11 +96,30 @@ public class App extends WebSocketServer {
         System.out.println("found a match");
       }
     }
-
+    /*//Caclulate the number of games in progress
+    for (Game i : ActiveGames) {
+      gamesInProgress++;
+    }
+    //Caclulate the number of games won by X
+    for (Game i : ActiveGames) {
+      gamesWonByX++;
+    }
+    //Caclulate the number of games won by O
+    for (Game i : ActiveGames) {
+      gamesWonByO++;
+    }
+    //Caclulate the number of games drawn
+    for (Game i : ActiveGames) {
+      gamesDrawn++;
+    }*/
     // No matches ? Create a new Game.
     if (G == null) {
       G = new Game();
       G.GameId = GameId;
+      G.gamesInProgress = gamesInProgress;
+      G.gamesWonByO = gamesWonByO;
+      G.gamesWonByX = gamesWonByX;
+      G.gamesDrawn = gamesDrawn;
       GameId++;
       // Add the first player
       G.Players = uta.cse3310.PlayerType.XPLAYER;
@@ -106,12 +129,18 @@ public class App extends WebSocketServer {
       // join an existing game
       System.out.println(" not a new game");
       G.Players = uta.cse3310.PlayerType.OPLAYER;
+      //gamesInProgress++;
       G.StartGame();
     }
     System.out.println("G.players is " + G.Players);
     // create an event to go to only the new player
     E.YouAre = G.Players;
     E.GameId = G.GameId;
+    E.gamesInProgress = G.gamesInProgress;
+    E.gamesWonByX = G.gamesWonByX;
+    E.gamesWonByO = G.gamesWonByO;
+    E.gamesDrawn = G.gamesDrawn;
+    
     // allows the websocket to give us the Game when a message arrives
     conn.setAttachment(G);
 
@@ -126,6 +155,10 @@ public class App extends WebSocketServer {
 
     System.out.println(jsonString);
     broadcast(jsonString);
+    //G.gamesInProgress = gamesInProgress;
+    G.gamesWonByO = gamesWonByO;
+    G.gamesWonByX = gamesWonByX;
+    G.gamesDrawn = gamesDrawn;
 
   }
 
@@ -134,6 +167,15 @@ public class App extends WebSocketServer {
     System.out.println(conn + " has closed");
     // Retrieve the game tied to the websocket connection
     Game G = conn.getAttachment();
+    //Save the game data, games in progress, games won by X, games won by O, and games drawn
+    gamesInProgress = G.gamesInProgress;
+    gamesWonByX = G.gamesWonByX;
+    gamesWonByO = G.gamesWonByO;
+    gamesDrawn = G.gamesDrawn;
+    if (G != null) {
+      // remove the game from the list of active games
+      ActiveGames.remove(G);
+    }
     G = null;
   }
 

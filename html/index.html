@@ -55,6 +55,7 @@
     connection.onopen = function (evt) {
         console.log("open");
         //gamesPlayed++;
+        //gamesinprogress++;
     }
     connection.onclose = function (evt) {
         console.log("close");
@@ -72,6 +73,7 @@
         console.log("Message received: " + msg);
         const obj = JSON.parse(msg);
 
+        //gamesplayed = obj.gamesPlayed;
         gamesinprogress = obj.gamesInProgress;
         gameswonbyx = obj.gamesWonByX;
         gameswonbyo = obj.gamesWonByO;

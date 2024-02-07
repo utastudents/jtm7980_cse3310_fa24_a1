@@ -44,11 +44,12 @@ public class Game {
 
     public void StartGame() {
         // X player goes first. Because that is how it is.
+        //gamesInProgress++;
         Msg[0] = "You are X. Your turn";
         Msg[1] = "You are O. Other players turn";
         CurrentTurn = PlayerType.XPLAYER;
         //gamesPlayed++;
-        gamesInProgress++;
+        
     }
 
     private boolean CheckLine(int i, int j, int k, PlayerType player) {

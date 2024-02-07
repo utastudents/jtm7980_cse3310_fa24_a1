@@ -96,22 +96,6 @@ public class App extends WebSocketServer {
         System.out.println("found a match");
       }
     }
-    /*//Caclulate the number of games in progress
-    for (Game i : ActiveGames) {
-      gamesInProgress++;
-    }
-    //Caclulate the number of games won by X
-    for (Game i : ActiveGames) {
-      gamesWonByX++;
-    }
-    //Caclulate the number of games won by O
-    for (Game i : ActiveGames) {
-      gamesWonByO++;
-    }
-    //Caclulate the number of games drawn
-    for (Game i : ActiveGames) {
-      gamesDrawn++;
-    }*/
     // No matches ? Create a new Game.
     if (G == null) {
       G = new Game();
@@ -129,7 +113,7 @@ public class App extends WebSocketServer {
       // join an existing game
       System.out.println(" not a new game");
       G.Players = uta.cse3310.PlayerType.OPLAYER;
-      //gamesInProgress++;
+      gamesInProgress++;
       G.StartGame();
     }
     System.out.println("G.players is " + G.Players);
@@ -155,7 +139,7 @@ public class App extends WebSocketServer {
 
     System.out.println(jsonString);
     broadcast(jsonString);
-    //G.gamesInProgress = gamesInProgress;
+    G.gamesInProgress = gamesInProgress;
     G.gamesWonByO = gamesWonByO;
     G.gamesWonByX = gamesWonByX;
     G.gamesDrawn = gamesDrawn;

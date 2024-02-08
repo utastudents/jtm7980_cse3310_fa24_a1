@@ -86,7 +86,7 @@
             else {
                 idx = 1;
             }
-
+            //document.getElementById("bottomMessage").innerHTML = obj.bottomMsg[idx];
             gameid = obj.GameId;
         }
 
@@ -108,14 +108,9 @@
 
                 // the message line
                 document.getElementById("topMessage").innerHTML = obj.Msg[idx];
+                document.getElementById("bottomMessage").innerHTML = obj.bottomMsg[idx];
             }
         }
-        document.getElementById("bottomMessage").innerHTML =
-        "Games Played: " + gamesplayed + "<br>" +
-        "Games In Progress: " + gamesinprogress + "<br>" +
-        "Games Won By X: " + gameswonbyx + "<br>" +
-        "Games Won By O: " + gameswonbyo + "<br>" +
-        "Games Drawn: " + gamesdrawn + "<br>";
         
     }
 
